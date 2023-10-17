@@ -24,11 +24,20 @@ string generateDate();
 double generateAmmount();
 string spokenNumber(double ammount);
 
+default_random_engine generator(time(0));
+
 int main(){
   vector<string> nameList;
   getNames(FILE_NAME, nameList);
+  for (int i = 0; i < nameList.size(); i++) {
   cout << "----------------\n" <<
+    "Check Number: " << i << endl << "          " << "Date:" << generateDate() << endl <<
+    "Pay to the Order of: " << nameList[i] << "          $" << FIXED_FLOAT(generateAmmount()) << endl <<
+    "Memo Paycheck" << "                             " << "Signature: Lucas Beeman\n" <<
+    "----------------\n\n";
+     
 
+  }
 
  
   return 0;
@@ -51,8 +60,7 @@ void getNames(string fileName, vector<string> &nameList) {
 }
 
 string generateDate() { //choose a random date out of the 365 days of the year
-  default_random_engine generator(time(0));
-  uniform_real_distribution<double> distribution(0, 360);
+  uniform_int_distribution<int> distribution(0, 360);
   string month = "";
   string day = "";
   string year = "23";
@@ -98,7 +106,6 @@ string generateDate() { //choose a random date out of the 365 days of the year
 }
 
 double generateAmmount() {
-  default_random_engine generator(time(0));
   uniform_real_distribution<double> distribution(0.01, 10000.00);
   return distribution(generator);
 }
